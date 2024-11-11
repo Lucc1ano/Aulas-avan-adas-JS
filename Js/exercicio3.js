@@ -528,18 +528,133 @@ for(var i = 0 ; i<4 ; i++)
    document.write("<br><br>")
 // 20. Altere o programa anterior para que ele aceite apenas números entre 0 e 1000.
 
+document.write("Questão 20<br>"); 
+
+var maior = -Infinity; 
+var menor = Infinity; 
+var soma = 0;
+
+for (var i = 0; i < 4; i++) {   
+  var numeroz = parseInt(prompt("Digite um número entre 0 e 1000:"));
+  
+  if (numeroz >= 0 && numeroz <= 1000) {
+    soma += numeroz;
+
+    if (numeroz > maior) {
+      maior = numeroz;
+    } 
+    
+    if (numeroz < menor) {
+      menor = numeroz;
+    }
+  } else {
+    alert("Número inválido! Por favor, insira um número entre 0 e 1000.");
+    i--;
+  }
+}
+
+document.write(`Esse é o maior número: ${maior}<br>`);
+document.write(`Esse é o menor número: ${menor}<br>`);
+document.write(`A soma dos números é: ${soma}<br><br>`);
+
 
 // 21. Altere o programa de cálculo do fatorial, permitindo ao usuário calcular o fatorial várias vezes
 // e limitando o fatorial a números inteiros positivos e menores que 16.
+
+document.write("Questão 21<br>");
+
+function calcularFatorial(n) {
+  let fatorial = 1;
+  for (let i = 1; i <= n; i++) {
+    fatorial *= i;
+  }
+  return fatorial;
+}
+
+while (true) {
+  var numero = parseInt(prompt("Digite um número inteiro positivo menor que 16 para calcular o fatorial (ou 0 para sair):"));
+
+  if (numero === 0) {
+    break;
+  }
+
+  if (numero > 0 && numero < 16) {
+    var resultado = calcularFatorial(numero);
+    document.write(`O fatorial de ${numero} é: ${resultado}<br>`);
+  } else {
+    alert("Por favor, insira um número inteiro positivo menor que 16.");
+  }
+}
+
+document.write("Programa encerrado.<br>");
 
   
 // 22. Faça um programa que peça um número inteiro e determine se ele é ou não um número primo.
 // Um número primo é aquele que é divisível somente por ele mesmo e por 1.
 // Números primos com laços
 
+document.write("Questão 22<br>");
+
+var numero = parseInt(prompt("Digite um número inteiro para verificar se é primo:"));
+
+function verificarPrimo(n) {
+  if (n <= 1) {
+    return false; // Números menores ou iguais a 1 não são primos
+  }
+
+  for (var i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false; // Se encontrar um divisor, não é primo
+    }
+  }
+
+  return true; // Se não encontrar divisores, o número é primo
+}
+
+if (verificarPrimo(numero)) {
+  document.write(`${numero} é um número primo.<br>`);
+} else {
+  document.write(`${numero} não é um número primo.<br>`);
+}
+
 
 // 23. Altere o programa de cálculo dos números primos, informando, caso o número não seja primo,
 // por quais número ele é divisível.
+
+document.write("Questão 23<br>");
+
+var numero = parseInt(prompt("Digite um número inteiro para verificar se é primo:"));
+
+function verificarPrimo(n) {
+  if (n <= 1) {
+    return { primo: false, divisores: [] }; // Números menores ou iguais a 1 não são primos
+  }
+
+  var divisores = [];
+  
+  for (var i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      divisores.push(i); // Se for divisor, adiciona ao array de divisores
+    }
+  }
+
+  // Se divisores encontrados, não é primo, e lista os divisores
+  if (divisores.length > 0) {
+    return { primo: false, divisores: divisores };
+  }
+
+  // Caso contrário, o número é primo
+  return { primo: true, divisores: [] };
+}
+
+var resultado = verificarPrimo(numero);
+
+if (resultado.primo) {
+  document.write(`${numero} é um número primo.<br>`);
+} else {
+  document.write(`${numero} não é um número primo.<br>`);
+  document.write(`Ele é divisível por: ${resultado.divisores.join(", ")}<br>`);
+}
 
   
 // 24. Faça um programa que mostre todos os primos entre 1 e N sendo N um número inteiro
@@ -547,27 +662,161 @@ for(var i = 0 ; i<4 ; i++)
 // executou para encontrar os números primos. Serão avaliados o funcionamento, o estilo e o
 // número de testes (divisões) executados.
 
+document.write("Questão 24<br>");
+
+var N = parseInt(prompt("Digite um número inteiro N para encontrar todos os primos entre 1 e N:"));
+
+var divisaoCount = 0; // Variável para contar o número de divisões
+
+function verificarPrimo(n) {
+  if (n <= 1) {
+    return false; // Números menores ou iguais a 1 não são primos
+  }
+
+  for (var i = 2; i <= Math.sqrt(n); i++) {
+    divisaoCount++; // Conta uma divisão a cada tentativa de verificação
+    if (n % i === 0) {
+      return false; // Se for divisível por algum número, não é primo
+    }
+  }
+
+  return true; // Se não encontrar nenhum divisor, é primo
+}
+
+document.write(`Números primos entre 1 e ${N} são:<br>`);
+
+for (var i = 2; i <= N; i++) {
+  if (verificarPrimo(i)) {
+    document.write(i + "<br>");
+  }
+}
+
+document.write(`<br>Total de divisões executadas: ${divisaoCount}<br>`);
+
   
 // 25. Faça um programa que calcule o mostre a média aritmética de N notas.
+
+document.write("Questão 25<br>");
+
+var N = parseInt(prompt("Digite o número de notas:"));
+var soma = 0;
+
+for (var i = 1; i <= N; i++) {
+  var nota = parseFloat(prompt(`Digite a nota ${i}:`));
+  soma += nota; // Soma cada nota fornecida pelo usuário
+}
+
+var media = soma / N; // Calcula a média aritmética
+
+document.write(`A média das ${N} notas é: ${media.toFixed(2)}<br>`);
 
   
 // 26. Faça um programa que peça para n pessoas a sua idade, ao final o programa devera verificar
 // se a média de idade da turma varia entre 0 e 25,26 e 60 e maior que 60; e então, dizer se a turma
 // é jovem, adulta ou idosa, conforme a média calculada.
 
+document.write("Questão 26<br>");
+
+var n = parseInt(prompt("Digite o número de pessoas:"));
+var somaIdades = 0;
+
+for (var i = 1; i <= n; i++) {
+  var idade = parseInt(prompt(`Digite a idade da pessoa ${i}:`));
+  somaIdades += idade; // Soma as idades de todas as pessoas
+}
+
+var mediaIdades = somaIdades / n; // Calcula a média das idades
+
+document.write(`A média de idade da turma é: ${mediaIdades.toFixed(2)}<br>`);
+
+if (mediaIdades <= 25) {
+  document.write("A turma é jovem.<br>");
+} else if (mediaIdades <= 60) {
+  document.write("A turma é adulta.<br>");
+} else {
+  document.write("A turma é idosa.<br>");
+}
   
+
 // 27. Numa eleição existem três candidatos. Faça um programa que peça o número total de
 // eleitores. Peça para cada eleitor votar e ao final mostrar o número de votos de cada candidato.
+
+document.write("Questão 27<br>");
+
+var totalEleitores = parseInt(prompt("Digite o número total de eleitores:"));
+
+var votosCandidato1 = 0;
+var votosCandidato2 = 0;
+var votosCandidato3 = 0;
+
+for (var i = 1; i <= totalEleitores; i++) {
+  var voto = parseInt(prompt("Digite seu voto (1, 2 ou 3):\n1 - Candidato 1\n2 - Candidato 2\n3 - Candidato 3"));
+  
+  if (voto === 1) {
+    votosCandidato1++;
+  } else if (voto === 2) {
+    votosCandidato2++;
+  } else if (voto === 3) {
+    votosCandidato3++;
+  } else {
+    alert("Voto inválido! Por favor, digite 1, 2 ou 3.");
+    i--; // Decrementa o contador para que o eleitor possa votar novamente
+  }
+}
+
+document.write(`Votos do Candidato 1: ${votosCandidato1}<br>`);
+document.write(`Votos do Candidato 2: ${votosCandidato2}<br>`);
+document.write(`Votos do Candidato 3: ${votosCandidato3}<br>`);
 
   
 // 28. Faça um programa que calcule o número médio de alunos por turma. Para isto, peça a
 // quantidade de turmas e a quantidade de alunos para cada turma. As turmas não podem ter mais
 // de 40 alunos.
 
+document.write("Questão 28<br>");
+
+var numeroDeTurmas = parseInt(prompt("Digite o número de turmas:"));
+var somaAlunos = 0;
+var turmasValidas = 0;
+
+for (var i = 1; i <= numeroDeTurmas; i++) {
+  var alunosNaTurma = parseInt(prompt(`Digite o número de alunos para a turma ${i}:`));
+  
+  // Verifica se o número de alunos está dentro do limite (não pode ter mais de 40 alunos por turma)
+  if (alunosNaTurma <= 40) {
+    somaAlunos += alunosNaTurma; // Soma o número de alunos se for válido
+    turmasValidas++; // Conta a turma como válida
+  } else {
+    alert("O número de alunos por turma não pode ser maior que 40. Esta turma não será considerada.");
+  }
+}
+
+if (turmasValidas > 0) {
+  var mediaAlunosPorTurma = somaAlunos / turmasValidas;
+  document.write(`A média de alunos por turma é: ${mediaAlunosPorTurma.toFixed(2)}<br>`);
+} else {
+  document.write("Não foi possível calcular a média, pois nenhuma turma foi válida.<br>");
+}
+
   
 // 29. Faça um programa que calcule o valor total investido por um colecionador em sua coleção de
 // CDs e o valor médio gasto em cada um deles. O usuário deverá informar a quantidade de CDs e o
 // valor para em cada um.
+
+document.write("Questão 29<br>");
+
+var quantidadeDeCDs = parseInt(prompt("Digite a quantidade de CDs na coleção:"));
+var valorTotalInvestido = 0;
+
+for (var i = 1; i <= quantidadeDeCDs; i++) {
+  var valorCD = parseFloat(prompt(`Digite o valor do CD ${i}:`));
+  valorTotalInvestido += valorCD; // Soma o valor investido em cada CD
+}
+
+var valorMedio = valorTotalInvestido / quantidadeDeCDs; // Calcula o valor médio gasto por CD
+
+document.write(`O valor total investido na coleção de CDs é: R$ ${valorTotalInvestido.toFixed(2)}<br>`);
+document.write(`O valor médio gasto por CD é: R$ ${valorMedio.toFixed(2)}<br>`);
 
   
 // 30. O Sr. Manoel Joaquim possui uma grande loja de artigos de R$ 1,99, com cerca de 10 caixas.
@@ -583,6 +832,16 @@ for(var i = 0 ; i<4 ; i++)
 // 2 - R$ 3.98
 // ...
 // 50 - R$ 99.50
+
+document.write("Lojas Quase Dois - Tabela de Preços<br><br>");
+
+var precoUnitario = 1.99;
+
+for (var i = 1; i <= 50; i++) {
+  var total = i * precoUnitario;
+  document.write(`${i} - R$ ${total.toFixed(2)}<br>`);
+}
+
 
 // 31. O Sr. Manoel Joaquim acaba de adquirir uma panificadora e pretende implantar a metodologia
 // da tabelinha, que já é um sucesso na sua loja de 1,99. Você foi contratado para desenvolver o
@@ -614,18 +873,127 @@ for(var i = 0 ; i<4 ; i++)
 // Troco: R$ 11.00
 // ...
 
+document.write("Panificadora Pão de Ontem - Tabela de Preços<br><br>");
+
+// Solicita o preço do pão ao usuário
+var precoDoPao = parseFloat(prompt("Digite o preço do pão: R$"));
+
+// Verifica se o preço do pão é válido
+if (precoDoPao <= 0) {
+    document.write("Preço inválido. O preço do pão deve ser maior que zero.");
+} else {
+    // Gera a tabela de preços para 1 até 50 pães
+    for (var i = 1; i <= 50; i++) {
+        var total = i * precoDoPao; // Calcula o preço total para o número de pães
+        document.write(`${i} - R$ ${total.toFixed(2)}<br>`); // Exibe o número de pães e o preço
+    }
+}
+
+
 // 33. O Departamento Estadual de Meteorologia lhe contratou para desenvolver um programa que
 // leia as um conjunto indeterminado de temperaturas, e informe ao final a menor e a maior
 // temperaturas informadas, bem como a média das temperaturas.
+
+
+document.write("Departamento Estadual de Meteorologia - Relatório de Temperaturas<br><br>");
+
+var temperatura;
+var somaTemperaturas = 0;
+var contador = 0;
+var maiorTemperatura = -Infinity;  // Inicializa como o menor valor possível
+var menorTemperatura = Infinity;   // Inicializa como o maior valor possível
+
+while (true) {
+  // Solicita a temperatura ao usuário
+  temperatura = parseFloat(prompt("Digite a temperatura (ou '0' para encerrar):"));
+  
+  // Se o usuário digitar 0, o programa será encerrado
+  if (temperatura === 0) {
+    break;
+  }
+  
+  // Atualiza a maior e a menor temperatura
+  if (temperatura > maiorTemperatura) {
+    maiorTemperatura = temperatura;
+  }
+  if (temperatura < menorTemperatura) {
+    menorTemperatura = temperatura;
+  }
+  
+  // Acumula a soma das temperaturas e incrementa o contador
+  somaTemperaturas += temperatura;
+  contador++;
+}
+
+// Verifica se pelo menos uma temperatura foi informada
+if (contador > 0) {
+  var mediaTemperaturas = somaTemperaturas / contador;
+  
+  // Exibe o resultado final
+  document.write(`A menor temperatura informada foi: ${menorTemperatura}°C<br>`);
+  document.write(`A maior temperatura informada foi: ${maiorTemperatura}°C<br>`);
+  document.write(`A média das temperaturas é: ${mediaTemperaturas.toFixed(2)}°C<br>`);
+} else {
+  document.write("Nenhuma temperatura foi informada.<br>");
+}
 
   
 // 34. Os números primos possuem várias aplicações dentro da Computação, por exemplo na
 // Criptografia. Um número primo é aquele que é divisível apenas por um e por ele mesmo. Faça um
 // programa que peça um número inteiro e determine se ele é ou não um número primo.
 
+document.write("Verificação de Número Primo<br><br>");
+
+var numero = parseInt(prompt("Digite um número inteiro:"));
+
+// Função para verificar se o número é primo
+function verificarPrimo(num) {
+  if (num < 2) {
+    return false; // Números menores que 2 não são primos
+  }
+  for (var i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      return false; // Se for divisível por algum número além de 1 e ele mesmo, não é primo
+    }
+  }
+  return true; // Caso contrário, é primo
+}
+
+// Verifica se o número informado é primo e exibe o resultado
+if (verificarPrimo(numero)) {
+  document.write(`${numero} é um número primo!<br>`);
+} else {
+  document.write(`${numero} não é um número primo.<br>`);
+}
+
+
   
 // 35. Encontrar números primos é uma tarefa difícil. Faça um programa que gera uma lista dos
 // números primos existentes entre 1 e um número inteiro informado pelo usuário.
+
+// Solicita ao usuário o valor máximo para encontrar os números primos
+var limite = parseInt(prompt("Digite um número inteiro para encontrar os números primos até este valor:"));
+
+// Função para verificar se um número é primo
+function verificarPrimo(num) {
+  if (num < 2) return false; // Números menores que 2 não são primos
+  for (var i = 2; i <= Math.sqrt(num); i++) { // Verifica até a raiz quadrada do número
+    if (num % i === 0) {
+      return false; // Se for divisível por qualquer número, não é primo
+    }
+  }
+  return true; // Caso contrário, é primo
+}
+
+// Exibe os números primos no intervalo de 1 até o limite fornecido
+document.write(`Números primos de 1 até ${limite}:<br>`);
+for (var i = 1; i <= limite; i++) {
+  if (verificarPrimo(i)) {
+    document.write(`${i} <br>`); // Exibe os números primos
+  }
+}
+
+
 // 36. Desenvolva um programa que faça a tabuada de um número qualquer inteiro que será digitado
 // pelo usuário, mas a tabuada não deve necessariamente iniciar em 1 e terminar em 10, o valor
 // inicial e final devem ser informados também pelo usuário, conforme exemplo abaixo:
@@ -640,6 +1008,24 @@ for(var i = 0 ; i<4 ; i++)
 
 // Obs: Você deve verificar se o usuário não digitou o final menor que o inicial.
 
+// Solicita ao usuário os valores para a tabuada
+var numero = parseInt(prompt("Montar a tabuada de:"));
+var inicio = parseInt(prompt("Começar por:"));
+var fim = parseInt(prompt("Terminar em:"));
+
+// Verifica se o valor final é maior que o valor inicial
+if (fim < inicio) {
+  document.write("O valor final não pode ser menor que o valor inicial.");
+} else {
+  document.write(`Vou montar a tabuada de ${numero} começando em ${inicio} e terminando em ${fim}:<br><br>`);
+  
+  // Exibe a tabuada de acordo com os valores fornecidos
+  for (var i = inicio; i <= fim; i++) {
+    var resultado = numero * i;
+    document.write(`${numero} X ${i} = ${resultado}<br>`);
+  }
+}
+
   
 // 37. Uma academia deseja fazer um senso entre seus clientes para descobrir o mais alto, o mais
 // baixo, a mais gordo e o mais magro, para isto você deve fazer um programa que pergunte a cada
@@ -649,12 +1035,88 @@ for(var i = 0 ; i<4 ; i++)
 // magro, além da média das alturas e dos pesos dos clientes
 
 
+document.write("Senso de Academia<br><br>");
+
+var codigo;
+var altura;
+var peso;
+
+var maisAlto = {codigo: 0, altura: 0};
+var maisBaixo = {codigo: 0, altura: Infinity};
+var maisGordo = {codigo: 0, peso: 0};
+var maisMagro = {codigo: 0, peso: Infinity};
+
+var somaAlturas = 0;
+var somaPesos = 0;
+var totalClientes = 0;
+
+while (true) {
+    codigo = parseInt(prompt("Digite o código do cliente (digite 0 para encerrar):"));
+    
+    if (codigo === 0) {
+        break;
+    }
+
+    altura = parseFloat(prompt("Digite a altura do cliente:"));
+    peso = parseFloat(prompt("Digite o peso do cliente:"));
+
+    somaAlturas += altura;
+    somaPesos += peso;
+    totalClientes++;
+
+    // Verifica o cliente mais alto
+    if (altura > maisAlto.altura) {
+        maisAlto = {codigo: codigo, altura: altura};
+    }
+    
+    // Verifica o cliente mais baixo
+    if (altura < maisBaixo.altura) {
+        maisBaixo = {codigo: codigo, altura: altura};
+    }
+    
+    // Verifica o cliente mais gordo
+    if (peso > maisGordo.peso) {
+        maisGordo = {codigo: codigo, peso: peso};
+    }
+    
+    // Verifica o cliente mais magro
+    if (peso < maisMagro.peso) {
+        maisMagro = {codigo: codigo, peso: peso};
+    }
+}
+
+var mediaAltura = somaAlturas / totalClientes;
+var mediaPeso = somaPesos / totalClientes;
+
+document.write(`<br>Cliente mais alto: Código ${maisAlto.codigo}, Altura ${maisAlto.altura}m<br>`);
+document.write(`Cliente mais baixo: Código ${maisBaixo.codigo}, Altura ${maisBaixo.altura}m<br>`);
+document.write(`Cliente mais gordo: Código ${maisGordo.codigo}, Peso ${maisGordo.peso}kg<br>`);
+document.write(`Cliente mais magro: Código ${maisMagro.codigo}, Peso ${maisMagro.peso}kg<br>`);
+document.write(`Média das alturas: ${mediaAltura.toFixed(2)}m<br>`);
+document.write(`Média dos pesos: ${mediaPeso.toFixed(2)}kg<br>`);
+
+
 // 38. Um funcionário de uma empresa recebe aumento salarial anualmente: Sabe-se que:
 // a. Esse funcionário foi contratado em 1995, com salário inicial de R$ 1.000,00;
 // b. Em 1996 recebeu aumento de 1,5% sobre seu salário inicial;
 // c. A partir de 1997 (inclusive), os aumentos salariais sempre correspondem ao dobro do percentual
 // do ano anterior. Faça um programa que determine o salário atual desse funcionário. Após concluir
 // isto, altere o programa permitindo que o usuário digite o salário inicial do funcionário.
+
+
+var salarioInicial = parseFloat(prompt("Digite o salário inicial do funcionário: R$"));
+var salario = salarioInicial;
+var aumentoPercentual = 1.5 / 100; // Aumento inicial de 1.5%
+
+// Salário inicial em 1995
+var ano = 1995;
+
+for (var anoAtual = 1996; anoAtual <= 2024; anoAtual++) {
+    salario += salario * aumentoPercentual;
+    aumentoPercentual *= 2; // O aumento dobra a cada ano após 1996
+}
+
+document.write(`O salário atual do funcionário é R$ ${salario.toFixed(2)} (referente a 2024).<br>`);
 
   
 // 39. Foi feita uma estatística em cinco cidades brasileiras para coletar dados sobre acidentes de
@@ -665,6 +1127,49 @@ for(var i = 0 ; i<4 ; i++)
 // d. Qual o maior e menor índice de acidentes de transito e a que cidade pertence;
 // e. Qual a média de veículos nas cinco cidades juntas;
 // f. Qual a média de acidentes de trânsito nas cidades com menos de 2.000 veículos de passeio.
+
+var cidades = 5;
+var maiorIndice = {cidade: 0, indice: 0};
+var menorIndice = {cidade: 0, indice: Infinity};
+var somaVeiculos = 0;
+var somaAcidentes = 0;
+var cidadesComMenosVeiculos = 0;
+var somaAcidentesMenosVeiculos = 0;
+
+for (var i = 1; i <= cidades; i++) {
+    var codigoCidade = parseInt(prompt(`Digite o código da cidade ${i}:`));
+    var veiculos = parseInt(prompt(`Digite o número de veículos de passeio da cidade ${i}:`));
+    var acidentes = parseInt(prompt(`Digite o número de acidentes com vítimas da cidade ${i}:`));
+    
+    // Calcular o índice de acidentes
+    var indiceAcidentes = acidentes / veiculos;
+
+    if (indiceAcidentes > maiorIndice.indice) {
+        maiorIndice = {cidade: codigoCidade, indice: indiceAcidentes};
+    }
+
+    if (indiceAcidentes < menorIndice.indice) {
+        menorIndice = {cidade: codigoCidade, indice: indiceAcidentes};
+    }
+
+    somaVeiculos += veiculos;
+    somaAcidentes += acidentes;
+
+    if (veiculos < 2000) {
+        cidadesComMenosVeiculos++;
+        somaAcidentesMenosVeiculos += acidentes;
+    }
+}
+
+var mediaVeiculos = somaVeiculos / cidades;
+var mediaAcidentesMenosVeiculos = cidadesComMenosVeiculos > 0 ? somaAcidentesMenosVeiculos / cidadesComMenosVeiculos : 0;
+
+document.write(`Maior índice de acidentes: Cidade ${maiorIndice.cidade} com índice ${maiorIndice.indice.toFixed(2)}<br>`);
+document.write(`Menor índice de acidentes: Cidade ${menorIndice.cidade} com índice ${menorIndice.indice.toFixed(2)}<br>`);
+document.write(`Média de veículos nas 5 cidades: ${mediaVeiculos.toFixed(2)}<br>`);
+document.write(`Média de acidentes nas cidades com menos de 2.000 veículos: ${mediaAcidentesMenosVeiculos.toFixed(2)}<br>`);
+
+
 // 40. Faça um programa que receba o valor de uma dívida e mostre uma tabela com os seguintes
 // dados: valor da dívida, valor dos juros, quantidade de parcelas e valor da parcela.
 // a. Os juros e a quantidade de parcelas seguem a tabela abaixo:
@@ -681,6 +1186,25 @@ for(var i = 0 ; i<4 ; i++)
 // R$ 1.100,00 100 3 R$ 366,00
 // R$ 1.150,00 150 6 R$ 191,67
 
+var divida = parseFloat(prompt("Digite o valor da dívida: R$"));
+
+var parcelas = [1, 3, 6, 9, 12];
+var juros = [0, 10, 15, 20, 25];
+
+document.write("Tabela de Dívidas:<br>");
+document.write("Valor da Dívida | Valor dos Juros | Quantidade de Parcelas | Valor da Parcela<br>");
+
+for (var i = 0; i < parcelas.length; i++) {
+    var quantidadeParcelas = parcelas[i];
+    var percentualJuros = juros[i];
+    var valorJuros = (divida * percentualJuros) / 100;
+    var valorTotal = divida + valorJuros;
+    var valorParcela = valorTotal / quantidadeParcelas;
+
+    document.write(`R$ ${valorTotal.toFixed(2)} | R$ ${valorJuros.toFixed(2)} | ${quantidadeParcelas} | R$ ${valorParcela.toFixed(2)}<br>`);
+}
+
+
 // 41. O cardápio de uma lanchonete é o seguinte:
 // a. Especificação Código Preço
 
@@ -694,7 +1218,36 @@ for(var i = 0 ; i<4 ; i++)
 // Calcule e mostre o valor a ser pago por item (preço * quantidade) e o total geral do
 // pedido. Considere que o cliente deve informar quando o pedido deve ser encerrado.
 
+var cardapio = {
+    100: 1.20,
+    101: 1.30,
+    102: 1.50,
+    103: 1.20,
+    104: 1.30,
+    105: 1.00
+};
+
+var total = 0;
+
+while (true) {
+    var codigo = parseInt(prompt("Digite o código do item (0 para encerrar):"));
+    if (codigo === 0) break;
+
+    if (cardapio[codigo]) {
+        var quantidade = parseInt(prompt("Digite a quantidade:"));
+        var preco = cardapio[codigo];
+        var subtotal = preco * quantidade;
+        total += subtotal;
+        document.write(`Item ${codigo} - Preço unitário: R$ ${preco} - Quantidade: ${quantidade} - Total: R$ ${subtotal.toFixed(2)}<br>`);
+    } else {
+        alert("Código inválido.");
+    }
+}
+
+document.write(`<br>Total Geral: R$ ${total.toFixed(2)}<br>`);
+
   
+
 // 42. Em uma eleição presidencial existem quatro candidatos. Os votos são informados por meio de
 // código. Os códigos utilizados são:
 // a. 1 , 2, 3, 4 - Votos para os respectivos candidatos
@@ -712,6 +1265,36 @@ for(var i = 0 ; i<4 ; i++)
 // f. A percentagem de votos em branco sobre o total de votos. Para finalizar o conjunto de votos
 // tem-se o valor zero.
 
+var votos = [0, 0, 0, 0, 0, 0]; // Votos para candidatos 1, 2, 3, 4, nulos, brancos
+
+while (true) {
+    var voto = parseInt(prompt("Digite o código do voto (1-4 para candidatos, 5 para nulo, 6 para branco, 0 para encerrar):"));
+    if (voto === 0) break;
+
+    if (voto >= 1 && voto <= 4) {
+        votos[voto - 1]++;
+    } else if (voto === 5) {
+        votos[4]++;
+    } else if (voto === 6) {
+        votos[5]++;
+    } else {
+        alert("Código inválido.");
+    }
+}
+
+var totalVotos = votos.reduce((a, b) => a + b, 0);
+var percentVotosNulos = (votos[4] / totalVotos) * 100;
+var percentVotosBrancos = (votos[5] / totalVotos) * 100;
+
+document.write(`Votos Candidato 1: ${votos[0]}<br>`);
+document.write(`Votos Candidato 2: ${votos[1]}<br>`);
+document.write(`Votos Candidato 3: ${votos[2]}<br>`);
+document.write(`Votos Candidato 4: ${votos[3]}<br>`);
+document.write(`Votos Nulos: ${votos[4]}<br>`);
+document.write(`Votos em Branco: ${votos[5]}<br>`);
+document.write(`Percentagem de votos nulos: ${percentVotosNulos.toFixed(2)}%<br>`);
+document.write(`Percentagem de votos em branco: ${percentVotosBrancos.toFixed(2)}%<br>`);
+
   
 // 43. Desenvolver um programa para verificar a nota do aluno em uma prova com 10 questões, o
 // programa deve perguntar ao aluno a resposta de cada questão e ao final comparar com o gabarito
@@ -721,3 +1304,37 @@ for(var i = 0 ; i<4 ; i++)
 // a. Maior e Menor Acerto;
 // b. Total de Alunos que utilizaram o sistema;
 // c. A Média das Notas da Turma.
+
+var gabarito = ['A', 'B', 'C', 'D', 'A', 'B', 'C', 'D', 'A', 'B'];
+var totalAlunos = 0;
+var maiorNota = 0;
+var menorNota = 10;
+var somaNotas = 0;
+
+while (true) {
+    var acertos = 0;
+
+    for (var i = 0; i < 10; i++) {
+        var resposta = prompt(`Questão ${i+1}: Sua resposta (A/B/C/D):`);
+        if (resposta === gabarito[i]) {
+            acertos++;
+        }
+    }
+
+    totalAlunos++;
+    maiorNota = Math.max(maiorNota, acertos);
+    menorNota = Math.min(menorNota, acertos);
+    somaNotas += acertos;
+
+    var outroAluno = prompt("Outro aluno vai utilizar o sistema? (S/N):");
+    if (outroAluno.toUpperCase() !== 'S') {
+        break;
+    }
+}
+
+var mediaNotas = somaNotas / totalAlunos;
+
+document.write(`Maior nota: ${maiorNota}<br>`);
+document.write(`Menor nota: ${menorNota}<br>`);
+document.write(`Total de alunos: ${totalAlunos}<br>`);
+document.write(`Média das notas: ${mediaNotas.toFixed(2)}<br>`);
